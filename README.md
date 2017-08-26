@@ -47,10 +47,7 @@ Add Sentry context middleware in Startup.cs
 ````csharp
 public void Configure(IApplicationBuilder app, IAntiforgery antiforgery, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
 {
-    loggerFactory.AddSerilog();
-    appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
-
-    // Add this line right after Serilog configuration
+    // Add this line
     app.AddSentryContext();
 
     // Other stuff
@@ -58,4 +55,4 @@ public void Configure(IApplicationBuilder app, IAntiforgery antiforgery, IHostin
 ````
 
 ## Known issues
-At the moment only .NET Framework supported.
+At the moment only .NET Framework and .NET Core 2.0 supported.
