@@ -41,7 +41,8 @@ namespace Serilog.Sinks.Sentry
 
         private static IDictionary<string, string> Convert(IEnumerable<KeyValuePair<string, StringValues>> collection)
         {
-            return collection.ToDictionary(x => x.Key, x => string.Join(" ", x.Value.ToArray()));
+            return collection.Where(h => h.Value.Any())
+                .ToDictionary(x => x.Key, x => string.Join(" ", x.Value.ToArray()));
         }
 
         private object BodyConvert()

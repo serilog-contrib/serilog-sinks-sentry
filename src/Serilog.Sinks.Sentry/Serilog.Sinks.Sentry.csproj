@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>A Sentry sink for Serilog</Description>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>1.0.1</VersionPrefix>
     <Authors>Oleg Shevchenko</Authors>
     <TargetFramework>net451</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -13,6 +13,7 @@
     <PackageReleaseNotes>https://github.com/olsh/serilog-sinks-sentry/releases</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/olsh/serilog-sinks-sentry</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/olsh/serilog-sinks-sentry/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>http://serilog.net/images/serilog-sink-nuget.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/olsh/serilog-sinks-sentry</RepositoryUrl>
 
