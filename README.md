@@ -53,8 +53,7 @@ public void Configure(IApplicationBuilder app, IAntiforgery antiforgery, IHostin
     // Add this line right after Serilog configuration
     app.AddSentryContext();
 
-    // O
-    ther stuff
+    // Other stuff
 }
 ````
 
