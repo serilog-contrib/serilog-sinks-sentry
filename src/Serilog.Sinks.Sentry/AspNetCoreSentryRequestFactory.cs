@@ -12,7 +12,7 @@ using SharpRaven.Utilities;
 
 namespace Serilog.Sinks.Sentry
 {
-    internal class AspNetCoreSentryRequestFactory : ISentryRequestFactory
+    public class AspNetCoreSentryRequestFactory : ISentryRequestFactory
     {
         public AspNetCoreSentryRequestFactory(HttpContext httpContext)
         {
