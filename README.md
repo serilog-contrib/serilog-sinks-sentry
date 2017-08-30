@@ -37,8 +37,9 @@ var log = new LoggerConfiguration()
     .WriteTo.Sentry("Sentry DSN")
     .Enrich.FromLogContext()
 
-    // Add this line to the logger configuration
+    // Add this two lines to the logger configuration
     .Destructure.With<HttpContextDestructingPolicy>()
+    .Filter.ByExcluding(e => e.Exception?.IsCaptured() == true)
 
     .CreateLogger();
 ```

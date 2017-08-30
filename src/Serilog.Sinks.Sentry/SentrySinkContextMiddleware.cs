@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Serilog.Context;
 
@@ -17,8 +18,18 @@ namespace Serilog.Sinks.Sentry
         {
             using (LogContext.PushProperty(Constants.HttpContextKey, context, true))
             {
-                await _next(context)
-                    .ConfigureAwait(false);
+                try
+                {
+                    await _next(context)
+                        .ConfigureAwait(false);
+                }
+                catch (Exception e)
+                {
+                    Log.Logger.Error(e, $"Connection id \"\"{context.TraceIdentifier}\"\": An unhandled exception was thrown by the application.");
+                    e.SetCaptured();
+
+                    throw;
+                }
             }
         }
     }

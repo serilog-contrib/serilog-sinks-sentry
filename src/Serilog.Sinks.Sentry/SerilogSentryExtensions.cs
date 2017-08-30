@@ -14,6 +14,7 @@ namespace Serilog.Sinks.Sentry
         /// </summary>
         /// <param name="app">The application.</param>
         /// <returns>The application.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="app"/> is <see langword="null"/></exception>
         public static IApplicationBuilder AddSentryContext(this IApplicationBuilder app)
         {
             if (app == null)

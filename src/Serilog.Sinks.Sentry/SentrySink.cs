@@ -45,9 +45,10 @@ namespace Serilog.Sinks.Sentry
             if (logEvent.Properties.TryGetValue(Constants.HttpContextKey, out var logEventPropertyValue) &&
                 logEventPropertyValue is ScalarValue scalarValue && scalarValue.Value is HttpContext httpContext)
             {
-                ravenClient = new RavenClient(_dsn,
-                    sentryRequestFactory: new AspNetCoreSentryRequestFactory(httpContext),
-                    sentryUserFactory: new AspNetCoreSentryUserFactory(httpContext))
+                ravenClient = new RavenClient(
+                                  _dsn,
+                                  sentryRequestFactory: new AspNetCoreSentryRequestFactory(httpContext),
+                                  sentryUserFactory: new AspNetCoreSentryUserFactory(httpContext))
                 {
                     Release = _release,
                     Environment = _environment
@@ -55,8 +56,7 @@ namespace Serilog.Sinks.Sentry
             }
             else
             {
-                ravenClient = new RavenClient(_dsn)
-                    {Release = _release, Environment = _environment};
+                ravenClient = new RavenClient(_dsn) { Release = _release, Environment = _environment };
             }
 
             ravenClient.Capture(sentryEvent);

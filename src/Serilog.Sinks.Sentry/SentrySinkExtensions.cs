@@ -21,7 +21,9 @@ namespace Serilog.Sinks.Sentry
         /// <returns>The logger configuration.</returns>
         /// <exception cref="ArgumentException">Value cannot be null or whitespace. - dsn</exception>
         public static LoggerConfiguration Sentry(
-            this LoggerSinkConfiguration loggerConfiguration, string dsn, string release = null,
+            this LoggerSinkConfiguration loggerConfiguration,
+            string dsn,
+            string release = null,
             string environment = null,
             LogEventLevel restrictedToMinimumLevel = LogEventLevel.Error,
             IFormatProvider formatProvider = null)
@@ -31,7 +33,8 @@ namespace Serilog.Sinks.Sentry
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(dsn));
             }
 
-            return loggerConfiguration.Sink(new SentrySink(formatProvider, dsn, release, environment),
+            return loggerConfiguration.Sink(
+                new SentrySink(formatProvider, dsn, release, environment),
                 restrictedToMinimumLevel);
         }
     }

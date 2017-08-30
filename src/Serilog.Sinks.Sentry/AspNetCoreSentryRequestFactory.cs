@@ -71,7 +71,7 @@ namespace Serilog.Sinks.Sentry
             {
                 _context = context;
 
-                if (_context.Request.Body == null)
+                if (_context.Request.Body == null || !_context.Request.Body.CanSeek)
                 {
                     return;
                 }

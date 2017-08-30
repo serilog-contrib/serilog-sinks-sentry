@@ -8,7 +8,9 @@ namespace Serilog.Sinks.Sentry
     public class HttpContextDestructingPolicy : IDestructuringPolicy
     {
         /// <inheritdoc />
-        public bool TryDestructure(object value, ILogEventPropertyValueFactory propertyValueFactory,
+        public bool TryDestructure(
+            object value,
+            ILogEventPropertyValueFactory propertyValueFactory,
             out LogEventPropertyValue result)
         {
             if (value is HttpContext)
