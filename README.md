@@ -39,7 +39,7 @@ var log = new LoggerConfiguration()
 
     // Add this two lines to the logger configuration
     .Destructure.With<HttpContextDestructingPolicy>()
-    .Filter.ByExcluding(e => e.Exception?.IsCaptured() == true)
+    .Filter.ByExcluding(e => e.Exception?.CheckIfCaptured() == true)
 
     .CreateLogger();
 ```
