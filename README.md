@@ -2,7 +2,6 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/3rtn2dsk5ln6qaup?svg=true)](https://ci.appveyor.com/project/olsh/serilog-sinks-sentry)
 [![Quality Gate](https://sonarqube.com/api/badges/gate?key=serilog-sinks-sentry)](https://sonarqube.com/dashboard/index/serilog-sinks-sentry)
-[![NuGet](https://img.shields.io/nuget/v/Serilog.Sinks.Sentry.svg)](https://www.nuget.org/packages/Serilog.Sinks.Sentry/)
 
 |   | Package |
 | ------------- | ------------- |
