@@ -33,9 +33,9 @@ log.Error("This error goes to Sentry.");
 
 ### Capturing HttpContext (ASP.NET Core)
 
-In order to capture user, request body and headers, some additional steps are required.
+In order to capture a user, request body and headers, some additional steps are required.
 
-Install the [additional package](https://www.nuget.org/packages/Serilog.Sinks.Sentry.AspCore/) for ASP Core
+Install the [additional sink](https://www.nuget.org/packages/Serilog.Sinks.Sentry.AspCore/) for ASP Core
 ```
 Install-Package Serilog.Sinks.Sentry.AspCore
 ```
@@ -65,4 +65,4 @@ public void Configure(IApplicationBuilder app, IAntiforgery antiforgery, IHostin
 ````
 
 ## Known issues
-At the moment only .NET Framework and .NET Core 2.0 supported.
+At the moment only .NET Framework and .NET Core 2.0 are supported.
