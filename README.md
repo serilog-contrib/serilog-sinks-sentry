@@ -55,7 +55,7 @@ var log = new LoggerConfiguration()
 
 Add Sentry context middleware in Startup.cs
 ````csharp
-public void Configure(IApplicationBuilder app, IAntiforgery antiforgery, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 {
     // Add this line
     app.AddSentryContext();
