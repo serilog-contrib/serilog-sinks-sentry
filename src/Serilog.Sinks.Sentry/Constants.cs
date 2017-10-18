@@ -1,7 +1,7 @@
 ﻿namespace Serilog.Sinks.Sentry
 {
-    internal static class Constants
+    public static class SentrySinkConstants
     {
-        internal const string HttpContextKey = "SinkHttpContext";
+        public const string HttpContextKey = "SinkHttpContext";
     }
 }

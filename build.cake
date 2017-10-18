@@ -1,9 +1,10 @@
 var target = Argument("target", "Default");
-var extensionsVersion = Argument("version", "1.0.3");
+var extensionsVersion = Argument("version", "2.0.0");
+var projectName = Argument("project", "Serilog.Sinks.Sentry");
 
 var buildConfiguration = "Release";
-var projectName = "Serilog.Sinks.Sentry";
-var solutionFileName = string.Format("./src/{0}.sln", projectName);
+var solutionName = "Serilog.Sinks.Sentry";
+var solutionFileName = string.Format("./src/{0}.sln", solutionName);
 var projectFolder = string.Format("./src/{0}/", projectName);
 
 Task("UpdateBuildVersion")

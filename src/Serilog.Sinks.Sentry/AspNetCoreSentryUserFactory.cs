@@ -1,21 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using SharpRaven.Data;
+﻿using SharpRaven.Data;
 
 namespace Serilog.Sinks.Sentry
 {
-    internal class AspNetCoreSentryUserFactory : ISentryUserFactory
+    internal class SentryUserFactory : ISentryUserFactory
     {
-        private readonly HttpContext _httpContext;
+        private readonly ISentryHttpContext _httpContext;
 
-        public AspNetCoreSentryUserFactory(HttpContext httpContext)
+        public SentryUserFactory(ISentryHttpContext httpContext)
         {
             _httpContext = httpContext;
         }
 
         public SentryUser Create()
         {
-            var sentryUser =
-                new SentryUser(_httpContext.User) { IpAddress = _httpContext.Connection.RemoteIpAddress.ToString() };
+            var sentryUser = new SentryUser(_httpContext.User) { IpAddress = _httpContext.RemoteIpAddress };
 
             return sentryUser;
         }

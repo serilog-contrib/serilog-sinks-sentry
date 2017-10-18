@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
+
 using Serilog.Core;
 using Serilog.Events;
+
 using SharpRaven;
 using SharpRaven.Data;
 
@@ -42,13 +43,13 @@ namespace Serilog.Sinks.Sentry
             };
 
             IRavenClient ravenClient;
-            if (logEvent.Properties.TryGetValue(Constants.HttpContextKey, out var logEventPropertyValue) &&
-                logEventPropertyValue is ScalarValue scalarValue && scalarValue.Value is HttpContext httpContext)
+            if (logEvent.Properties.TryGetValue(SentrySinkConstants.HttpContextKey, out var logEventPropertyValue) &&
+                logEventPropertyValue is ScalarValue scalarValue && scalarValue.Value is ISentryHttpContext httpContext)
             {
                 ravenClient = new RavenClient(
                                   _dsn,
-                                  sentryRequestFactory: new AspNetCoreSentryRequestFactory(httpContext),
-                                  sentryUserFactory: new AspNetCoreSentryUserFactory(httpContext))
+                                  sentryRequestFactory: new SentryRequestFactory(httpContext),
+                                  sentryUserFactory: new SentryUserFactory(httpContext))
                 {
                     Release = _release,
                     Environment = _environment

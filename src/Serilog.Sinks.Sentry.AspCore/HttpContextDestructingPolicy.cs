@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Serilog.Core;
+﻿using Serilog.Core;
 using Serilog.Events;
 
-namespace Serilog.Sinks.Sentry
+namespace Serilog.Sinks.Sentry.AspCore
 {
     /// <inheritdoc />
     public class HttpContextDestructingPolicy : IDestructuringPolicy
@@ -13,7 +12,7 @@ namespace Serilog.Sinks.Sentry
             ILogEventPropertyValueFactory propertyValueFactory,
             out LogEventPropertyValue result)
         {
-            if (value is HttpContext)
+            if (value is ISentryHttpContext)
             {
                 result = new ScalarValue(value);
 
