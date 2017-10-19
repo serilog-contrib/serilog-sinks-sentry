@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 
 using Serilog.Context;
 
-namespace Serilog.Sinks.Sentry.AspCore
+namespace Serilog.Sinks.Sentry.AspNetCore
 {
     internal class SentrySinkContextMiddleware
     {

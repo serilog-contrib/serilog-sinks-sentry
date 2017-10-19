@@ -6,10 +6,10 @@
     <Authors>Oleg Shevchenko</Authors>
     <TargetFramework>net451</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>Serilog.Sinks.Sentry.AspCore</AssemblyName>
+    <AssemblyName>Serilog.Sinks.Sentry.AspNetCore</AssemblyName>
 
-    <PackageId>Serilog.Sinks.Sentry.AspCore</PackageId>
-    <PackageTags>serilog sink sentry logging</PackageTags>
+    <PackageId>Serilog.Sinks.Sentry.AspNetCore</PackageId>
+    <PackageTags>serilog sink sentry logging core</PackageTags>
     <PackageReleaseNotes>https://github.com/olsh/serilog-sinks-sentry/releases</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/olsh/serilog-sinks-sentry</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/olsh/serilog-sinks-sentry/master/LICENSE</PackageLicenseUrl>
@@ -25,11 +25,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.0.0" />
     <PackageReference Include="Serilog" Version="2.0.0" />
-    <PackageReference Include="SharpRaven" Version="2.2.0" />  
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Serilog.Sinks.Sentry\Serilog.Sinks.Sentry.csproj" />
+    <PackageReference Include="SharpRaven" Version="2.2.0" />
+    <PackageReference Include="Serilog.Sinks.Sentry" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

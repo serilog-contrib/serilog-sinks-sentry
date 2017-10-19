@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 using SharpRaven.Data;
 using SharpRaven.Utilities;
 
-namespace Serilog.Sinks.Sentry.AspCore
+namespace Serilog.Sinks.Sentry.AspNetCore
 {
     public class AspCoreHttpContextAdapter : ISentryHttpContext
     {

@@ -6,7 +6,7 @@
 |   | Package |
 | ------------- | ------------- |
 | Serilog.Sinks.Sentry  | [![NuGet](https://img.shields.io/nuget/v/Serilog.Sinks.Sentry.svg)](https://www.nuget.org/packages/Serilog.Sinks.Sentry/)  |
-| Serilog.Sinks.Sentry.AspCore  | [![NuGet](https://img.shields.io/nuget/v/Serilog.Sinks.Sentry.AspCore.svg)](https://www.nuget.org/packages/Serilog.Sinks.Sentry.AspCore/)  |
+| Serilog.Sinks.Sentry.AspNetCore  | [![NuGet](https://img.shields.io/nuget/v/Serilog.Sinks.Sentry.AspNetCore.svg)](https://www.nuget.org/packages/Serilog.Sinks.Sentry.AspNetCore/)  |
 
 A Sentry sink for Serilog.
 
@@ -35,9 +35,9 @@ log.Error("This error goes to Sentry.");
 
 In order to capture a user, request body and headers, some additional steps are required.
 
-Install the [additional sink](https://www.nuget.org/packages/Serilog.Sinks.Sentry.AspCore/) for ASP Core
+Install the [additional sink](https://www.nuget.org/packages/Serilog.Sinks.Sentry.AspNetCore/) for ASP.NET Core
 ```
-Install-Package Serilog.Sinks.Sentry.AspCore
+Install-Package Serilog.Sinks.Sentry.AspNetCore
 ```
 
 Specify custom HttpContext destructing policy

@@ -5,7 +5,7 @@
 //------------------------------------------------------------------------------
 using System.Reflection;
 
-[assembly: AssemblyTitle("Serilog.Sinks.Sentry.AspCore")]
+[assembly: AssemblyTitle("Serilog.Sinks.Sentry.AspNetCore")]
 [assembly: AssemblyVersion("2.0.0")]
 [assembly: AssemblyFileVersion("2.0.0")]
 

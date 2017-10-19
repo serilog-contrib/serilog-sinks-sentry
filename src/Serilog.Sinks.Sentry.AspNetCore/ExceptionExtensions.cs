@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Serilog.Sinks.Sentry.AspCore
+namespace Serilog.Sinks.Sentry.AspNetCore
 {
     public static class ExceptionExtensions
     {
