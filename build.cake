@@ -1,5 +1,5 @@
 var target = Argument("target", "Default");
-var extensionsVersion = Argument("version", "2.0.0");
+var extensionsVersion = Argument("version", "2.0.1");
 var projectName = Argument("project", "Serilog.Sinks.Sentry");
 
 var buildConfiguration = "Release";
