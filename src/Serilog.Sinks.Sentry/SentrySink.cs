@@ -16,6 +16,7 @@ namespace Serilog.Sinks.Sentry
         private readonly string _environment;
         private readonly IFormatProvider _formatProvider;
         private readonly string _release;
+        private readonly string[] _tags = new string[0];
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SentrySink" /> class.
@@ -24,12 +25,17 @@ namespace Serilog.Sinks.Sentry
         /// <param name="dsn">The DSN.</param>
         /// <param name="release">The release.</param>
         /// <param name="environment">The environment.</param>
-        public SentrySink(IFormatProvider formatProvider, string dsn, string release, string environment)
+        /// <param name="tags">Comma separated list of properties to treat as tags in sentry.</param>
+        public SentrySink(IFormatProvider formatProvider, string dsn, string release, string environment, string tags)
         {
             _formatProvider = formatProvider;
             _dsn = dsn;
             _release = release;
             _environment = environment;
+            if (!string.IsNullOrWhiteSpace(tags))
+            {
+                _tags = tags.Split(',');
+            }
         }
 
         /// <inheritdoc />
@@ -39,7 +45,8 @@ namespace Serilog.Sinks.Sentry
             {
                 Level = GetSentryLevel(logEvent),
                 Message = logEvent.RenderMessage(_formatProvider),
-                Extra = logEvent.Properties.ToDictionary(pair => pair.Key, pair => pair.Value?.ToString())
+                Extra = logEvent.Properties.Where(pair => !_tags.Any(t => t == pair.Key)).ToDictionary(pair => pair.Key, pair => pair.Value?.ToString()),
+                Tags = logEvent.Properties.Where(pair => _tags.Any(t => t == pair.Key)).ToDictionary(pair => pair.Key, pair => pair.Value?.ToString())
             };
 
             IRavenClient ravenClient;
