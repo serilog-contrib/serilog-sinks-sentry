@@ -1,11 +1,13 @@
 var target = Argument("target", "Default");
-var extensionsVersion = Argument("version", "2.0.1");
 var projectName = Argument("project", "Serilog.Sinks.Sentry");
 
 var buildConfiguration = "Release";
 var solutionName = "Serilog.Sinks.Sentry";
 var solutionFileName = string.Format("./src/{0}.sln", solutionName);
 var projectFolder = string.Format("./src/{0}/", projectName);
+var projectFile = string.Format("{0}{1}.csproj", projectFolder, projectName);
+
+var extensionsVersion = XmlPeek(projectFile, "Project/PropertyGroup[1]/VersionPrefix/text()");
 
 Task("UpdateBuildVersion")
   .WithCriteria(BuildSystem.AppVeyor.IsRunningOnAppVeyor)
@@ -16,16 +18,10 @@ Task("UpdateBuildVersion")
     BuildSystem.AppVeyor.UpdateBuildVersion(string.Format("{0}.{1}", extensionsVersion, buildNumber));
 });
 
-Task("NugetRestore")
-  .Does(() =>
-{
-    DotNetCoreRestore(solutionFileName);
-});
-
 Task("UpdateAssemblyVersion")
   .Does(() =>
 {
-    var assemblyFile = string.Format("{0}/Properties/AssemblyInfo.cs", projectFolder);
+    var assemblyFile = string.Format("{0}Properties/AssemblyInfo.cs", projectFolder);
 
     AssemblyInfoSettings assemblySettings = new AssemblyInfoSettings();
     assemblySettings.Title = projectName;
@@ -36,14 +32,12 @@ Task("UpdateAssemblyVersion")
 });
 
 Task("Build")
-  .IsDependentOn("NugetRestore")
   .IsDependentOn("UpdateAssemblyVersion")
   .Does(() =>
 {
-    DotNetBuild(solutionFileName, 
-    settings => settings
-        .SetConfiguration(buildConfiguration)
-        .SetVerbosity(Verbosity.Minimal));
+    DotNetCoreBuild(solutionFileName, new DotNetCoreBuildSettings {
+		Configuration = buildConfiguration
+    });
 });
 
 Task("NugetPack")

@@ -35,7 +35,7 @@ namespace Serilog.Sinks.Sentry
             _environment = environment;
             if (!string.IsNullOrWhiteSpace(tags))
             {
-                _tags = tags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim());
+                _tags = tags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()).ToArray();
             }
         }
 
@@ -46,7 +46,7 @@ namespace Serilog.Sinks.Sentry
             {
                 Level = GetSentryLevel(logEvent),
                 Message = logEvent.RenderMessage(_formatProvider),
-                Extra = logEvent.Properties.Where(pair => !_tags.Any(t => t == pair.Key)).ToDictionary(pair => pair.Key, pair => pair.Value?.ToString()),
+                Extra = logEvent.Properties.Where(pair => _tags.All(t => t != pair.Key)).ToDictionary(pair => pair.Key, pair => pair.Value?.ToString()),
                 Tags = logEvent.Properties.Where(pair => _tags.Any(t => t == pair.Key)).ToDictionary(pair => pair.Key, pair => pair.Value?.ToString())
             };
 
