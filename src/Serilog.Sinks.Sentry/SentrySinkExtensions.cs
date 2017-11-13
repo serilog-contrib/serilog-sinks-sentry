@@ -18,6 +18,7 @@ namespace Serilog.Sinks.Sentry
         /// <param name="environment">The environment.</param>
         /// <param name="restrictedToMinimumLevel">The restricted to minimum level.</param>
         /// <param name="formatProvider">The format provider.</param>
+        /// <param name="tags">Comma separated list of properties to treat as tags in sentry.</param>
         /// <returns>The logger configuration.</returns>
         /// <exception cref="ArgumentException">Value cannot be null or whitespace. - dsn</exception>
         public static LoggerConfiguration Sentry(
@@ -26,7 +27,8 @@ namespace Serilog.Sinks.Sentry
             string release = null,
             string environment = null,
             LogEventLevel restrictedToMinimumLevel = LogEventLevel.Error,
-            IFormatProvider formatProvider = null)
+            IFormatProvider formatProvider = null,
+            string tags = null)
         {
             if (string.IsNullOrWhiteSpace(dsn))
             {
@@ -34,7 +36,7 @@ namespace Serilog.Sinks.Sentry
             }
 
             return loggerConfiguration.Sink(
-                new SentrySink(formatProvider, dsn, release, environment),
+                new SentrySink(formatProvider, dsn, release, environment, tags),
                 restrictedToMinimumLevel);
         }
     }
