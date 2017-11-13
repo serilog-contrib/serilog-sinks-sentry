@@ -6,6 +6,7 @@ using Serilog.Events;
 
 using SharpRaven;
 using SharpRaven.Data;
+using System.Collections.Generic;
 
 namespace Serilog.Sinks.Sentry
 {
@@ -16,7 +17,7 @@ namespace Serilog.Sinks.Sentry
         private readonly string _environment;
         private readonly IFormatProvider _formatProvider;
         private readonly string _release;
-        private readonly string[] _tags = new string[0];
+        private readonly IEnumerable<string> _tags = new string[0];
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SentrySink" /> class.
@@ -34,7 +35,7 @@ namespace Serilog.Sinks.Sentry
             _environment = environment;
             if (!string.IsNullOrWhiteSpace(tags))
             {
-                _tags = tags.Split(',');
+                _tags = tags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim());
             }
         }
 
