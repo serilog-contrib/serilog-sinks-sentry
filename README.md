@@ -17,6 +17,10 @@ The library is available as a [Nuget package](https://www.nuget.org/packages/Ser
 Install-Package Serilog.Sinks.Sentry
 ```
 
+## Demos
+
+You can find demo .NET Core apps [here](demos/).
+
 ## Get started
 
 ### Adding Sentry sink
