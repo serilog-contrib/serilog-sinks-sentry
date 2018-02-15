@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Serilog.Core;
@@ -6,7 +7,6 @@ using Serilog.Events;
 
 using SharpRaven;
 using SharpRaven.Data;
-using System.Collections.Generic;
 
 namespace Serilog.Sinks.Sentry
 {
@@ -46,8 +46,10 @@ namespace Serilog.Sinks.Sentry
             {
                 Level = GetSentryLevel(logEvent),
                 Message = logEvent.RenderMessage(_formatProvider),
-                Extra = logEvent.Properties.Where(pair => _tags.All(t => t != pair.Key)).ToDictionary(pair => pair.Key, pair => pair.Value?.ToString()),
-                Tags = logEvent.Properties.Where(pair => _tags.Any(t => t == pair.Key)).ToDictionary(pair => pair.Key, pair => pair.Value?.ToString())
+                Extra = logEvent.Properties.Where(pair => _tags.All(t => t != pair.Key))
+                    .ToDictionary(pair => pair.Key, pair => Render(pair.Value, _formatProvider)),
+                Tags = logEvent.Properties.Where(pair => _tags.Any(t => t == pair.Key))
+                    .ToDictionary(pair => pair.Key, pair => Render(pair.Value, _formatProvider))
             };
 
             IRavenClient ravenClient;
@@ -89,6 +91,17 @@ namespace Serilog.Sinks.Sentry
                 default:
                     return ErrorLevel.Error;
             }
+        }
+
+        private static string Render(LogEventPropertyValue logEventPropertyValue, IFormatProvider formatProvider)
+        {
+            if (logEventPropertyValue is ScalarValue scalarValue && scalarValue.Value is string)
+            {
+                // Remove quotes from the value
+                return logEventPropertyValue.ToString("l", formatProvider);
+            }
+
+            return logEventPropertyValue?.ToString(null, formatProvider);
         }
     }
 }
