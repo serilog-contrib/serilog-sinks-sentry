@@ -1,7 +1,7 @@
 # Serilog.Sinks.Sentry
 
 [![Build status](https://ci.appveyor.com/api/projects/status/3rtn2dsk5ln6qaup?svg=true)](https://ci.appveyor.com/project/olsh/serilog-sinks-sentry)
-[![Quality Gate](https://sonarqube.com/api/badges/gate?key=serilog-sinks-sentry)](https://sonarcloud.io/dashboard?id=serilog-sinks-sentry)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=serilog-sinks-sentry&metric=alert_status)](https://sonarcloud.io/dashboard?id=serilog-sinks-sentry)
 
 |   | Package |
 | ------------- | ------------- |

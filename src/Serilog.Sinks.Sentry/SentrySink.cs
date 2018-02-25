@@ -27,8 +27,14 @@ namespace Serilog.Sinks.Sentry
         /// <param name="release">The release.</param>
         /// <param name="environment">The environment.</param>
         /// <param name="tags">Comma separated list of properties to treat as tags in sentry.</param>
+        /// <exception cref="ArgumentException">Value cannot be null or whitespace. - dsn</exception>
         public SentrySink(IFormatProvider formatProvider, string dsn, string release, string environment, string tags)
         {
+            if (string.IsNullOrWhiteSpace(dsn))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(dsn));
+            }
+
             _formatProvider = formatProvider;
             _dsn = dsn;
             _release = release;

@@ -20,7 +20,7 @@ namespace Serilog.Sinks.Sentry
         /// <param name="formatProvider">The format provider.</param>
         /// <param name="tags">Comma separated list of properties to treat as tags in sentry.</param>
         /// <returns>The logger configuration.</returns>
-        /// <exception cref="ArgumentException">Value cannot be null or whitespace. - dsn</exception>
+        // ReSharper disable once StyleCop.SA1625
         public static LoggerConfiguration Sentry(
             this LoggerSinkConfiguration loggerConfiguration,
             string dsn,
@@ -30,11 +30,6 @@ namespace Serilog.Sinks.Sentry
             IFormatProvider formatProvider = null,
             string tags = null)
         {
-            if (string.IsNullOrWhiteSpace(dsn))
-            {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(dsn));
-            }
-
             return loggerConfiguration.Sink(
                 new SentrySink(formatProvider, dsn, release, environment, tags),
                 restrictedToMinimumLevel);
