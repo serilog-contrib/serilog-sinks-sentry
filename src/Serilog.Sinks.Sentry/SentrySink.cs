@@ -8,7 +8,7 @@ using Serilog.Events;
 using SharpRaven;
 using SharpRaven.Data;
 
-namespace Serilog.Sinks.Sentry
+namespace Serilog
 {
     /// <inheritdoc />
     public class SentrySink : ILogEventSink

@@ -1,6 +1,6 @@
 ﻿using SharpRaven.Data;
 
-namespace Serilog.Sinks.Sentry
+namespace Serilog
 {
     internal class SentryUserFactory : ISentryUserFactory
     {

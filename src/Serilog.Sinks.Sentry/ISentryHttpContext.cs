@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Principal;
 
-namespace Serilog.Sinks.Sentry
+namespace Serilog
 {
     public interface ISentryHttpContext
     {

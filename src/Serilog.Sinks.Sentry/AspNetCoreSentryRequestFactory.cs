@@ -2,7 +2,7 @@
 
 using SharpRaven.Data;
 
-namespace Serilog.Sinks.Sentry
+namespace Serilog
 {
     public class SentryRequestFactory : ISentryRequestFactory
     {

@@ -1,4 +1,4 @@
-﻿namespace Serilog.Sinks.Sentry
+﻿namespace Serilog
 {
     public static class SentrySinkConstants
     {

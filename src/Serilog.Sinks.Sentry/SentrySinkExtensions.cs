@@ -1,8 +1,9 @@
 ﻿using System;
+
 using Serilog.Configuration;
 using Serilog.Events;
 
-namespace Serilog.Sinks.Sentry
+namespace Serilog
 {
     /// <summary>
     ///     Contains extension methods for Serilog configuration.
