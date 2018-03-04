@@ -1,6 +1,4 @@
-﻿using System;
-
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Internal;
 
 namespace Serilog.Sinks.Sentry.AspNetCore
@@ -15,13 +13,9 @@ namespace Serilog.Sinks.Sentry.AspNetCore
         /// </summary>
         /// <param name="app">The application.</param>
         /// <returns>The application.</returns>
+        // ReSharper disable once StyleCop.SA1625
         public static IApplicationBuilder AddSentryContext(this IApplicationBuilder app)
         {
-            if (app == null)
-            {
-                throw new ArgumentNullException(nameof(app));
-            }
-
             app.Use(
                 next => context =>
                 {

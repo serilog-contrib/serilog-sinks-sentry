@@ -16,6 +16,7 @@ namespace Serilog.Sinks.Sentry.AspNetCore
             _next = next;
         }
 
+        // ReSharper disable once AsyncConverter.AsyncMethodNamingHighlighting
         public async Task Invoke(HttpContext context)
         {
             using (LogContext.PushProperty(SentrySinkConstants.HttpContextKey, new AspCoreHttpContextAdapter(context), true))
@@ -30,6 +31,7 @@ namespace Serilog.Sinks.Sentry.AspNetCore
                     Log.Logger.Error(e, $"Connection id \"\"{context.TraceIdentifier}\"\": An unhandled exception was thrown by the application.");
                     e.SetCaptured();
 
+                    // ReSharper disable once ExceptionNotDocumented
                     throw;
                 }
             }

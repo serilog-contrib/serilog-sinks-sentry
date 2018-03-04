@@ -23,6 +23,7 @@ namespace Serilog.Sinks.Sentry.AspNetCore
             _httpContext = httpContext;
         }
 
+        // ReSharper disable once ExceptionNotDocumented
         public string RemoteIpAddress => _httpContext.Connection.RemoteIpAddress.ToString();
 
         public IDictionary<string, string> RequestCookies =>
@@ -70,9 +71,11 @@ namespace Serilog.Sinks.Sentry.AspNetCore
                     return;
                 }
 
+                // ReSharper disable once ExceptionNotDocumented
                 _context.Request.Body.Position = 0;
                 using (var bodyReader = new StreamReader(_context.Request.Body))
                 {
+                    // ReSharper disable once ExceptionNotDocumented
                     var body = bodyReader.ReadToEnd();
 
                     _stream = new MemoryStream(Encoding.UTF8.GetBytes(body));

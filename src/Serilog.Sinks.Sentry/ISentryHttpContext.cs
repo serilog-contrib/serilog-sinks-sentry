@@ -7,8 +7,6 @@ namespace Serilog.Sinks.Sentry
     {
         string RemoteIpAddress { get; }
 
-        object GetRequestBody();
-
         IDictionary<string, string> RequestCookies { get; }
 
         IDictionary<string, string> RequestHeaders { get; }
@@ -20,5 +18,7 @@ namespace Serilog.Sinks.Sentry
         string RequestQueryString { get; }
 
         IPrincipal User { get; }
+
+        object GetRequestBody();
     }
 }

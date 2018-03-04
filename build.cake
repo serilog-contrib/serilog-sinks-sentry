@@ -18,21 +18,7 @@ Task("UpdateBuildVersion")
     BuildSystem.AppVeyor.UpdateBuildVersion(string.Format("{0}.{1}", extensionsVersion, buildNumber));
 });
 
-Task("UpdateAssemblyVersion")
-  .Does(() =>
-{
-    var assemblyFile = string.Format("{0}Properties/AssemblyInfo.cs", projectFolder);
-
-    AssemblyInfoSettings assemblySettings = new AssemblyInfoSettings();
-    assemblySettings.Title = projectName;
-    assemblySettings.FileVersion = extensionsVersion;
-    assemblySettings.Version = extensionsVersion;
-
-    CreateAssemblyInfo(assemblyFile, assemblySettings);
-});
-
 Task("Build")
-  .IsDependentOn("UpdateAssemblyVersion")
   .Does(() =>
 {
     DotNetCoreBuild(solutionFileName, new DotNetCoreBuildSettings {

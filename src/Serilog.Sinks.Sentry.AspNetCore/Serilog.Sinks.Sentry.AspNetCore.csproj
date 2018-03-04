@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <Description>A Sentry sink for Serilog</Description>
-    <VersionPrefix>2.0.1</VersionPrefix>
+    <VersionPrefix>2.1.2</VersionPrefix>
     <Authors>Oleg Shevchenko</Authors>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFrameworks>net451;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Serilog.Sinks.Sentry.AspNetCore</AssemblyName>
 
@@ -16,20 +16,17 @@
     <PackageIconUrl>http://serilog.net/images/serilog-sink-nuget.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/olsh/serilog-sinks-sentry</RepositoryUrl>
-
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-
-    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.0.0" />
-    <PackageReference Include="Serilog" Version="2.0.0" />
-    <PackageReference Include="SharpRaven" Version="2.2.0" />
-    <PackageReference Include="Serilog.Sinks.Sentry" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Serilog.Sinks.Sentry\Serilog.Sinks.Sentry.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
