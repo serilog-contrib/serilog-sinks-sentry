@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>A Sentry sink for Serilog</Description>
-    <VersionPrefix>2.1.3</VersionPrefix>
+    <VersionPrefix>2.1.4</VersionPrefix>
     <Authors>Oleg Shevchenko</Authors>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="SharpRaven" Version="2.2.1-unstable0054" />
+    <PackageReference Include="SharpRaven" Version="2.3.0" />
   </ItemGroup>
 
 </Project>
