@@ -28,7 +28,7 @@ namespace Serilog
                 }
                 catch (Exception e)
                 {
-                    Log.Logger.Error(e, $"Connection id \"\"{context.TraceIdentifier}\"\": An unhandled exception was thrown by the application.");
+                    Log.Logger.Error(e, "Connection id \"{TraceIdentifier}\": An unhandled exception was thrown by the application.", context.TraceIdentifier);
                     e.SetCaptured();
 
                     // ReSharper disable once ExceptionNotDocumented
