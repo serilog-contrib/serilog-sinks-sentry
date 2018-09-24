@@ -68,8 +68,4 @@ Task("Sonar")
 Task("Default")
     .IsDependentOn("NugetPack");
 
-Task("CI")
-    .IsDependentOn("Sonar")
-    .IsDependentOn("CreateArtifact");
-
 RunTarget(target);

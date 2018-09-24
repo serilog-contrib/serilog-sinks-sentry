@@ -3,7 +3,9 @@ image: Visual Studio 2017
 install:
   - dotnet tool install -g Cake.Tool --version 0.30.0 
 build_script:
-- cmd: dotnet cake -Target=CI -buildConfig=Release
+- cmd: dotnet cake -Target=Sonar
+- cmd: dotnet cake -Target=CreateArtifact -Project=Serilog.Sinks.Sentry
+- cmd: dotnet cake -Target=CreateArtifact -Project=Serilog.Sinks.Sentry.AspNetCore
 test: off
 cache:
   - '%USERPROFILE%\.sonar\cache'
