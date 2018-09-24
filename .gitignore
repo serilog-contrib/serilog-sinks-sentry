@@ -288,5 +288,7 @@ __pycache__/
 *.xsd.cs
 
 # Cake
-tools/*
-!tools/packages.config
+tools/
+
+# SonarQube
+.sonarqube/

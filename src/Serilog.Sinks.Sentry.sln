@@ -7,12 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Sinks.Sentry", "Ser
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{58828A7B-0109-4C73-A1D4-3FD20CE98C3A}"
 	ProjectSection(SolutionItems) = preProject
+		..\appveyor.yml = ..\appveyor.yml
 		..\build.cake = ..\build.cake
-		build.ps1 = build.ps1
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.Sentry.AspNetCore", "Serilog.Sinks.Sentry.AspNetCore\Serilog.Sinks.Sentry.AspNetCore.csproj", "{9D939D70-B3A3-4D47-BDB7-DC661B5ACD9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Sinks.Sentry.AspNetCore", "Serilog.Sinks.Sentry.AspNetCore\Serilog.Sinks.Sentry.AspNetCore.csproj", "{9D939D70-B3A3-4D47-BDB7-DC661B5ACD9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
