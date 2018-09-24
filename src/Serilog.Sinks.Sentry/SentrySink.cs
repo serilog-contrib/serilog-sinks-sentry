@@ -15,20 +15,38 @@ namespace Serilog
     {
         private readonly string _dsn;
         private readonly string _environment;
+
+        private readonly IJsonPacketFactory _jsonPacketFactory;
+
+        private readonly ISentryUserFactory _sentryUserFactory;
+
+        private readonly ISentryRequestFactory _sentryRequestFactory;
+
         private readonly IFormatProvider _formatProvider;
         private readonly string _release;
         private readonly IEnumerable<string> _tags = new string[0];
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="SentrySink" /> class.
+        /// Initializes a new instance of the <see cref="SentrySink" /> class.
         /// </summary>
         /// <param name="formatProvider">The format provider.</param>
         /// <param name="dsn">The DSN.</param>
         /// <param name="release">The release.</param>
         /// <param name="environment">The environment.</param>
         /// <param name="tags">Comma separated list of properties to treat as tags in sentry.</param>
+        /// <param name="jsonPacketFactory">The json packet factory.</param>
+        /// <param name="sentryUserFactory">The sentry user factory.</param>
+        /// <param name="sentryRequestFactory">The sentry request factory.</param>
         /// <exception cref="ArgumentException">Value cannot be null or whitespace. - dsn</exception>
-        public SentrySink(IFormatProvider formatProvider, string dsn, string release, string environment, string tags)
+        public SentrySink(
+            IFormatProvider formatProvider,
+            string dsn,
+            string release,
+            string environment,
+            string tags,
+            IJsonPacketFactory jsonPacketFactory,
+            ISentryUserFactory sentryUserFactory,
+            ISentryRequestFactory sentryRequestFactory)
         {
             if (string.IsNullOrWhiteSpace(dsn))
             {
@@ -39,9 +57,14 @@ namespace Serilog
             _dsn = dsn;
             _release = release;
             _environment = environment;
+            _jsonPacketFactory = jsonPacketFactory;
+            _sentryUserFactory = sentryUserFactory;
+            _sentryRequestFactory = sentryRequestFactory;
             if (!string.IsNullOrWhiteSpace(tags))
             {
-                _tags = tags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()).ToArray();
+                _tags = tags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(t => t.Trim())
+                    .ToArray();
             }
         }
 
@@ -64,8 +87,9 @@ namespace Serilog
             {
                 ravenClient = new RavenClient(
                                   _dsn,
-                                  sentryRequestFactory: new SentryRequestFactory(httpContext),
-                                  sentryUserFactory: new SentryUserFactory(httpContext))
+                                  _jsonPacketFactory,
+                                  _sentryRequestFactory ?? new SentryRequestFactory(httpContext),
+                                  _sentryUserFactory ?? new SentryUserFactory(httpContext))
                 {
                     Release = _release,
                     Environment = _environment
@@ -73,7 +97,11 @@ namespace Serilog
             }
             else
             {
-                ravenClient = new RavenClient(_dsn) { Release = _release, Environment = _environment };
+                ravenClient =
+                    new RavenClient(_dsn, _jsonPacketFactory, _sentryRequestFactory, _sentryUserFactory)
+                        {
+                            Release = _release, Environment = _environment
+                        };
             }
 
             ravenClient.Capture(sentryEvent);
