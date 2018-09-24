@@ -67,6 +67,3 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
     // Other stuff
 }
 ````
-
-## Known issues
-At the moment only .NET Framework and .NET Core 2.0 are supported.
