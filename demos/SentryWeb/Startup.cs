@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SentryWeb.Scrubbing;
 using Serilog;
-using Serilog.Sinks.Sentry;
-using Serilog.Sinks.Sentry.AspNetCore;
+using SharpRaven.Data;
 
 namespace SentryWeb
 {
@@ -17,11 +17,14 @@ namespace SentryWeb
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            
+
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 // Insert Sentry DSN here
-                .WriteTo.Sentry("")
+                .WriteTo.Sentry(
+                    "", 
+                    dataScrubber: new CustomLogScrubber()
+                )
                 .Enrich.FromLogContext()
                 // Add Http Context for Sentry
                 .Destructure.With<HttpContextDestructingPolicy>()
