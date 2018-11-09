@@ -35,6 +35,21 @@ var log = new LoggerConfiguration()
 log.Error("This error goes to Sentry.");
 ```
 
+### Data scrubbing
+
+Some of the logged content might contain sensitive data and should therefore not be sent to Sentry. When setting up the Sentry Sink it is possible to provide a custom `IScrubber` implementation which will be passed the serialized data that is about to be sent to Sentry for scrubbing / cleaning.
+
+Adding a scrubber would look like this:
+
+```csharp
+var log = new LoggerConfiguration()
+    .WriteTo.Sentry("Sentry DSN", dataScrubber: new MyDataScrubber())
+    .Enrich.FromLogContext()
+    .CreateLogger();
+```
+
+`MyDataScrubber` has to implement the interface `SharpRaven.Logging.IScrubber`. Check the [Web Demo Startup.cs for further details](demos/SentryWeb/Startup.cs) and the [example implementation of a scrubber](demos/SentryWeb/Scrubbing/CustomLogScrubber.cs) .
+
 ### Capturing HttpContext (ASP.NET Core)
 
 In order to capture a user, request body and headers, some additional steps are required.
