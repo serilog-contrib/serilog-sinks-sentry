@@ -4,6 +4,7 @@ using Serilog.Configuration;
 using Serilog.Events;
 
 using SharpRaven.Data;
+using SharpRaven.Logging;
 
 namespace Serilog
 {
@@ -25,6 +26,7 @@ namespace Serilog
         /// <param name="jsonPacketFactory">The json packet factory.</param>
         /// <param name="sentryUserFactory">The sentry user factory.</param>
         /// <param name="sentryRequestFactory">The sentry request factory.</param>
+        /// <param name="dataScrubber">An <see cref="IScrubber"/> implementation for cleaning up logs before sending to Sentry</param>
         /// <returns>
         /// The logger configuration.
         /// </returns>
@@ -39,7 +41,9 @@ namespace Serilog
             string tags = null,
             IJsonPacketFactory jsonPacketFactory = null,
             ISentryUserFactory sentryUserFactory = null,
-            ISentryRequestFactory sentryRequestFactory = null)
+            ISentryRequestFactory sentryRequestFactory = null,
+            IScrubber dataScrubber = null
+            )
         {
             return loggerConfiguration.Sink(
                 new SentrySink(
@@ -50,7 +54,8 @@ namespace Serilog
                     tags,
                     jsonPacketFactory,
                     sentryUserFactory,
-                    sentryRequestFactory),
+                    sentryRequestFactory,
+                    dataScrubber),
                 restrictedToMinimumLevel);
         }
     }

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Serilog.Core;
 using Serilog.Events;
-
 using SharpRaven;
 using SharpRaven.Data;
+using SharpRaven.Logging;
 
 namespace Serilog
 {
@@ -21,6 +20,7 @@ namespace Serilog
         private readonly ISentryUserFactory _sentryUserFactory;
 
         private readonly ISentryRequestFactory _sentryRequestFactory;
+        private readonly IScrubber _dataScrubber;
 
         private readonly IFormatProvider _formatProvider;
         private readonly string _release;
@@ -37,6 +37,9 @@ namespace Serilog
         /// <param name="jsonPacketFactory">The json packet factory.</param>
         /// <param name="sentryUserFactory">The sentry user factory.</param>
         /// <param name="sentryRequestFactory">The sentry request factory.</param>
+        /// <param name="dataScrubber">
+        /// An <see cref="IScrubber"/> implementation for cleaning up the data sent to Sentry
+        /// </param>
         /// <exception cref="ArgumentException">Value cannot be null or whitespace. - dsn</exception>
         public SentrySink(
             IFormatProvider formatProvider,
@@ -46,7 +49,8 @@ namespace Serilog
             string tags,
             IJsonPacketFactory jsonPacketFactory,
             ISentryUserFactory sentryUserFactory,
-            ISentryRequestFactory sentryRequestFactory)
+            ISentryRequestFactory sentryRequestFactory, 
+            IScrubber dataScrubber)
         {
             if (string.IsNullOrWhiteSpace(dsn))
             {
@@ -60,6 +64,8 @@ namespace Serilog
             _jsonPacketFactory = jsonPacketFactory;
             _sentryUserFactory = sentryUserFactory;
             _sentryRequestFactory = sentryRequestFactory;
+            _dataScrubber = dataScrubber;
+            
             if (!string.IsNullOrWhiteSpace(tags))
             {
                 _tags = tags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
@@ -104,6 +110,7 @@ namespace Serilog
                         };
             }
 
+            ravenClient.LogScrubber = _dataScrubber;
             ravenClient.Capture(sentryEvent);
         }
 
