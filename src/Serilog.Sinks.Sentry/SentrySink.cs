@@ -41,7 +41,7 @@ namespace Serilog
         /// <param name="dataScrubber">
         /// An <see cref="IScrubber"/> implementation for cleaning up the data sent to Sentry
         /// </param>
-        /// <param name="logger">The sentry logger.</param>
+        /// <param name="logger">The name of the logger used by Sentry.</param>
         /// <exception cref="ArgumentException">Value cannot be null or whitespace. - dsn</exception>
         public SentrySink(
             IFormatProvider formatProvider,
@@ -51,7 +51,7 @@ namespace Serilog
             string tags,
             IJsonPacketFactory jsonPacketFactory,
             ISentryUserFactory sentryUserFactory,
-            ISentryRequestFactory sentryRequestFactory, 
+            ISentryRequestFactory sentryRequestFactory,
             IScrubber dataScrubber,
             string logger)
         {

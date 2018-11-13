@@ -27,7 +27,7 @@ namespace Serilog
         /// <param name="sentryUserFactory">The sentry user factory.</param>
         /// <param name="sentryRequestFactory">The sentry request factory.</param>
         /// <param name="dataScrubber">An <see cref="IScrubber"/> implementation for cleaning up logs before sending to Sentry</param>
-        /// <param name="logger">The sentry logger.</param>
+        /// <param name="logger">The name of the logger used by Sentry.</param>
         /// <returns>
         /// The logger configuration.
         /// </returns>
@@ -44,8 +44,7 @@ namespace Serilog
             ISentryUserFactory sentryUserFactory = null,
             ISentryRequestFactory sentryRequestFactory = null,
             IScrubber dataScrubber = null,
-            string logger = null
-            )
+            string logger = null)
         {
             return loggerConfiguration.Sink(
                 new SentrySink(
