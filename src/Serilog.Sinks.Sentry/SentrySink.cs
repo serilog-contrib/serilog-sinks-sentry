@@ -14,6 +14,7 @@ namespace Serilog
     {
         private readonly string _dsn;
         private readonly string _environment;
+        private readonly string _logger;
 
         private readonly IJsonPacketFactory _jsonPacketFactory;
 
@@ -40,6 +41,7 @@ namespace Serilog
         /// <param name="dataScrubber">
         /// An <see cref="IScrubber"/> implementation for cleaning up the data sent to Sentry
         /// </param>
+        /// <param name="logger">The sentry logger.</param>
         /// <exception cref="ArgumentException">Value cannot be null or whitespace. - dsn</exception>
         public SentrySink(
             IFormatProvider formatProvider,
@@ -50,7 +52,8 @@ namespace Serilog
             IJsonPacketFactory jsonPacketFactory,
             ISentryUserFactory sentryUserFactory,
             ISentryRequestFactory sentryRequestFactory, 
-            IScrubber dataScrubber)
+            IScrubber dataScrubber,
+            string logger)
         {
             if (string.IsNullOrWhiteSpace(dsn))
             {
@@ -65,7 +68,8 @@ namespace Serilog
             _sentryUserFactory = sentryUserFactory;
             _sentryRequestFactory = sentryRequestFactory;
             _dataScrubber = dataScrubber;
-            
+            _logger = logger;
+
             if (!string.IsNullOrWhiteSpace(tags))
             {
                 _tags = tags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
@@ -97,6 +101,7 @@ namespace Serilog
                                   _sentryRequestFactory ?? new SentryRequestFactory(httpContext),
                                   _sentryUserFactory ?? new SentryUserFactory(httpContext))
                 {
+                    Logger = _logger,
                     Release = _release,
                     Environment = _environment
                 };
