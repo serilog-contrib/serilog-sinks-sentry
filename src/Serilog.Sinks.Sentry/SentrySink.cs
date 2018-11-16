@@ -101,7 +101,6 @@ namespace Serilog
                                   _sentryRequestFactory ?? new SentryRequestFactory(httpContext),
                                   _sentryUserFactory ?? new SentryUserFactory(httpContext))
                 {
-                    Logger = _logger,
                     Release = _release,
                     Environment = _environment
                 };
@@ -115,6 +114,7 @@ namespace Serilog
                         };
             }
 
+            ravenClient.Logger = _logger;
             ravenClient.LogScrubber = _dataScrubber;
             ravenClient.Capture(sentryEvent);
         }
