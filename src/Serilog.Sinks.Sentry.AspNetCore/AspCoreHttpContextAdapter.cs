@@ -73,13 +73,16 @@ namespace Serilog
 
                 // ReSharper disable once ExceptionNotDocumented
                 _context.Request.Body.Position = 0;
-                using (var bodyReader = new StreamReader(_context.Request.Body))
+                using (var bodyReader = new StreamReader(_context.Request.Body, Encoding.UTF8, false, 1024, true))
                 {
                     // ReSharper disable once ExceptionNotDocumented
                     var body = bodyReader.ReadToEnd();
 
                     _stream = new MemoryStream(Encoding.UTF8.GetBytes(body));
                 }
+
+                // Reset the request body stream position so the next middleware can read it
+                context.Request.Body.Position = 0;
             }
 
             public string ContentType => _context.Request.ContentType;
