@@ -1,5 +1,10 @@
 # Serilog.Sinks.Sentry
 
+## Note
+
+> This is an unofficial library based on [the old Raven SDK](https://github.com/getsentry/raven-csharp/), the only use case for this is legacy projects (.NET Framework 4.5 to 4.6.0)  
+> For .NET Framework 4.6.1, .NET Core 2.0, Mono 5.4 or higher, [**please use the new SDK**](https://github.com/getsentry/sentry-dotnet).
+
 [![Build status](https://ci.appveyor.com/api/projects/status/3rtn2dsk5ln6qaup?svg=true)](https://ci.appveyor.com/project/olsh/serilog-sinks-sentry)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=serilog-sinks-sentry&metric=alert_status)](https://sonarcloud.io/dashboard?id=serilog-sinks-sentry)
 
