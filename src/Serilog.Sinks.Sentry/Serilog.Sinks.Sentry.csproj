@@ -13,6 +13,7 @@
     <PackageReleaseNotes>https://github.com/olsh/serilog-sinks-sentry/releases</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/olsh/serilog-sinks-sentry</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/olsh/serilog-sinks-sentry/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>http://serilog.net/images/serilog-sink-nuget.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/olsh/serilog-sinks-sentry</RepositoryUrl>
