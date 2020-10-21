@@ -26,6 +26,7 @@ namespace Serilog
         private readonly IFormatProvider _formatProvider;
         private readonly string _release;
         private readonly IEnumerable<string> _tags = new string[0];
+        private readonly Func<LogEvent, bool> _logIncludePredicate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SentrySink" /> class.
@@ -42,6 +43,7 @@ namespace Serilog
         /// An <see cref="IScrubber"/> implementation for cleaning up the data sent to Sentry
         /// </param>
         /// <param name="logger">The name of the logger used by Sentry.</param>
+        /// <param name="logIncludePredicate">Filter log events to include only those that match a predicate.</param>
         /// <exception cref="ArgumentException">Value cannot be null or whitespace. - dsn</exception>
         public SentrySink(
             IFormatProvider formatProvider,
@@ -53,7 +55,8 @@ namespace Serilog
             ISentryUserFactory sentryUserFactory,
             ISentryRequestFactory sentryRequestFactory,
             IScrubber dataScrubber,
-            string logger)
+            string logger, 
+            Func<LogEvent, bool> logIncludePredicate)
         {
             if (string.IsNullOrWhiteSpace(dsn))
             {
@@ -69,6 +72,7 @@ namespace Serilog
             _sentryRequestFactory = sentryRequestFactory;
             _dataScrubber = dataScrubber;
             _logger = logger;
+            _logIncludePredicate = logIncludePredicate;
 
             if (!string.IsNullOrWhiteSpace(tags))
             {
@@ -79,8 +83,16 @@ namespace Serilog
         }
 
         /// <inheritdoc />
-        public void Emit(LogEvent logEvent)
+        public virtual void Emit(LogEvent logEvent)
         {
+            if (_logIncludePredicate != null)
+            {
+                if (!_logIncludePredicate(logEvent))
+                {
+                    return;
+                }
+            }
+
             var sentryEvent = new SentryEvent(logEvent.Exception)
             {
                 Level = GetSentryLevel(logEvent),

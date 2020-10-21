@@ -18,6 +18,7 @@ namespace Serilog
         /// </summary>
         /// <param name="loggerConfiguration">The logger configuration.</param>
         /// <param name="dsn">The DSN.</param>
+        /// <param name="logIncludeSwitch"></param>
         /// <param name="release">The release.</param>
         /// <param name="environment">The environment.</param>
         /// <param name="restrictedToMinimumLevel">The restricted to minimum level.</param>
@@ -32,8 +33,7 @@ namespace Serilog
         /// The logger configuration.
         /// </returns>
         // ReSharper disable once StyleCop.SA1625
-        public static LoggerConfiguration Sentry(
-            this LoggerSinkConfiguration loggerConfiguration,
+        public static LoggerConfiguration Sentry(this LoggerSinkConfiguration loggerConfiguration,
             string dsn,
             string release = null,
             string environment = null,
@@ -44,7 +44,8 @@ namespace Serilog
             ISentryUserFactory sentryUserFactory = null,
             ISentryRequestFactory sentryRequestFactory = null,
             IScrubber dataScrubber = null,
-            string logger = null)
+            string logger = null,
+            Func<LogEvent, bool> logIncludeSwitch = null)
         {
             return loggerConfiguration.Sink(
                 new SentrySink(
@@ -57,7 +58,8 @@ namespace Serilog
                     sentryUserFactory,
                     sentryRequestFactory,
                     dataScrubber,
-                    logger),
+                    logger,
+                    logIncludeSwitch),
                 restrictedToMinimumLevel);
         }
     }
