@@ -83,7 +83,7 @@ namespace Serilog
         }
 
         /// <inheritdoc />
-        public virtual void Emit(LogEvent logEvent)
+        public void Emit(LogEvent logEvent)
         {
             if (_logIncludePredicate != null)
             {

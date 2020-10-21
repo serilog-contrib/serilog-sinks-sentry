@@ -18,7 +18,7 @@ namespace Serilog
         /// </summary>
         /// <param name="loggerConfiguration">The logger configuration.</param>
         /// <param name="dsn">The DSN.</param>
-        /// <param name="logIncludeSwitch"></param>
+        /// <param name="logIncludeSwitch">Filter log events to include only those that match a predicate.</param>
         /// <param name="release">The release.</param>
         /// <param name="environment">The environment.</param>
         /// <param name="restrictedToMinimumLevel">The restricted to minimum level.</param>
